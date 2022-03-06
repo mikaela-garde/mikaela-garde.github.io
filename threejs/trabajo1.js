@@ -27,7 +27,7 @@ function init() {
     //Camera
 	var aspectRatio = window.innerWidth/window.innerHeight;
 	camera = new THREE.PerspectiveCamera( 75, aspectRatio, 0.1, 100 );
-	camera.position.set( 0.5, 2, 5 );
+	camera.position.set( 3, 20, 20 );
 	camera.lookAt( new THREE.Vector3( 0,0,0 ) );
 
     //Camera control
@@ -35,33 +35,60 @@ function init() {
     cameraControl.target.set(0,0,0);
     cameraControl.noZoom = true;
 
+	//Luces
+    var ambiental = new THREE.AmbientLight(0x222222);
+    scene.add(ambiental);
+
+    var direccional = new THREE.DirectionalLight(0xffffff, 0.7);
+    direccional.position.set(0,1,0);
+    scene.add(direccional);
+
 }
 
 function loadScene() {
     conjunto = new THREE.Object3D();
-	conjunto.position.y = 1;
 
     //The ground
-    var geoGround = new THREE.PlaneGeometry(10,10,12,12);
-	var matGround = new THREE.MeshBasicMaterial( {color:'green', wireframe: false} );
+    var geoGround = new THREE.PlaneGeometry(30,30,12,12);
+	var matGround = new THREE.MeshLambertMaterial( {color:0x30ff67, wireframe: false} );
 	var ground = new THREE.Mesh(geoGround, matGround);
 	ground.rotation.x = -Math.PI/2;
 	ground.position.y = -0.01;
-    scene.add(ground);
+    conjunto.add(ground);
 
     //The road
     var geoRoad = new THREE.PlaneGeometry(2,10,12,12);
-	var matRoad = new THREE.MeshBasicMaterial( {color:'grey', wireframe: false} );
+	var matRoad = new THREE.MeshLambertMaterial( {color:0xcccccc, wireframe: false} );
 	var road = new THREE.Mesh(geoRoad, matRoad);
 	road.rotation.x = -Math.PI/2;
-	road.position.y = 0;
+	road.position.x = 3;
     scene.add(road);
 
-    const geometry = new THREE.CylinderGeometry( 0.3, 0.3, 5, 30);
-    const material = new THREE.MeshBasicMaterial( {color: 'brown'} );
+    const geometry = new THREE.CylinderGeometry( 0.2, 0.2, 1, 15);
+    const material = new THREE.MeshLambertMaterial( {color: 'brown'} );
     const cylinder = new THREE.Mesh( geometry, material );
-    road.position.x = 0;
+    cylinder.position. y= 3;
+	cylinder.position.x = -5;
+	cylinder.position.z = 0;
     scene.add( cylinder );
+
+	// Esfera
+	var geoEsfera = new THREE.SphereGeometry( 5, 30, 30 );
+	var materialSphere = new THREE.MeshLambertMaterial( {color:0x30ff67, wireframe: false} );
+	esfera = new THREE.Mesh( geoEsfera, materialSphere );
+	esfera.position.x = -5;
+	esfera.position.z = -2;
+	ground.add(esfera);
+
+	scene.add(conjunto);
+	scene.add( new THREE.AxesHelper(3) );
+
+	//Icecream
+	var loader = new THREE.GLTFLoader();
+	loader.load("models/icecream1/scene.gltf", 
+				function (objeto){
+					scene.add(objeto);
+				 });
 
 }
 
