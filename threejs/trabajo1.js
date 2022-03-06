@@ -27,7 +27,7 @@ function init() {
     //Camera
 	var aspectRatio = window.innerWidth/window.innerHeight;
 	camera = new THREE.PerspectiveCamera( 75, aspectRatio, 0.1, 100 );
-	camera.position.set( 3, 15, 15 );
+	camera.position.set( 3, 20, 20 );
 	camera.lookAt( new THREE.Vector3( 0,0,0 ) );
 
     //Camera control
@@ -46,6 +46,7 @@ function init() {
 }
 
 function loadScene() {
+	/*
     conjunto = new THREE.Object3D();
 
     //The ground
@@ -82,15 +83,14 @@ function loadScene() {
 
 	scene.add(conjunto);
 	scene.add( new THREE.AxesHelper(3) );
+	*/
 
 	//Icecream
-	var test = new THREE.Object3D();
 	var loader = new THREE.GLTFLoader();
-	loader.load("models/icecream1/scene.gltf", 
+	loader.load('models/icecream1/scene.glb', 
 				function (objeto){
-					test.add(objeto);
+					scene.add(objeto);
 				 });
-	scene.add(test);
 
 }
 
