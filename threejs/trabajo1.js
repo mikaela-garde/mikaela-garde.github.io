@@ -89,7 +89,7 @@ function loadScene() {
 	var loader = new THREE.GLTFLoader();
 	loader.load('models/icecream1/scene.glb', 
 				function (objeto){
-					scene.add(objeto);
+					scene.add(objeto.scene);
 				 });
 
 }
